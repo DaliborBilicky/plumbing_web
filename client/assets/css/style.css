@@ -2,71 +2,36 @@ body {
 	font-family: Arial, sans-serif;
 	margin: 0;
 	padding: 0;
-	background-color: #f0f0f0;
 	display: flex;
 	flex-direction: column;
 	min-height: 100vh;
 }
 
 header {
-	background-color: #333;
 	color: #fff;
 	text-align: center;
 	padding: 1em;
-}
-
-.section-tile {
-	position: relative;
-	overflow: hidden;
-	color: white;
-	text-align: center;
-	border-radius: 5px;
-	margin-bottom: 20px;
-}
-
-.section-tile img {
-	width: 100%;
-	height: auto;
-	filter: brightness(0.7);
-	/* Darken the image for better text visibility */
-}
-
-.overlay {
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	background: rgba(0, 0, 0, 0.5);
-	/* Semi-transparent background */
-	clip-path: polygon(0 0, 100% 0, 100% 100%, 0 90%);
-}
-
-.section-title {
-	font-size: 1.5rem;
-	margin: 0;
-}
-
-.section-link {
-	color: #fff;
-	text-decoration: underline;
 }
 
 footer {
-	background-color: #333;
 	color: #fff;
 	text-align: center;
 	padding: 1em;
-}
-
-.header-logo {
-	padding: 0.5em;
-	height: 50px;
 }
 
 main {
 	flex: 1;
+}
+
+.header-logo {
+	padding: 0.5em;
+	height: 75px;
+}
+
+.collapse-item {
+	font-size: 20px;
+	text-align: left;
+	color: #fff;
+	padding-left: 4em;
+	padding-top: 2px;
 }
