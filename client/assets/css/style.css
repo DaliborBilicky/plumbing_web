@@ -74,3 +74,23 @@ main {
 	left: 0;
 	z-index: 1;
 }
+
+.service-card {
+	transition: transform 0.3s ease;
+}
+
+.service-card:hover {
+	transform: scale(1.05);
+}
+
+.hero-section {
+	background: url('https://example.com/your-hero-image.jpg') no-repeat center center/cover;
+	color: white;
+	padding: 100px 0;
+	text-align: center;
+}
+
+.hero-section h1 {
+	font-size: 3rem;
+	font-weight: bold;
+}
