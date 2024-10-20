@@ -24,15 +24,13 @@
 		</nav>
 		<div class="collapse" id="navbarToggleExternalContent">
 			<div class="bg-dark p-4">
-				<span class="text-muted">
-					<nav class="nav flex-column">
-						<a class="collapse-item" href="../pages/water-plumbing.html">Voda</a>
-						<a class="collapse-item" href="../pages/gas-plumbing.html">Plyn</a>
-						<a class="collapse-item" href="../pages/heating-plumbing.html">Kurenie</a>
-						<a class="collapse-item" href="../pages/boiler-plumbing.html">Kotle</a>
-						<a class="collapse-item" href="../pages/booking.html">Rezervovať termín</a>
-					</nav>
-				</span>
+				<nav class="nav flex-column">
+					<a class="collapse-item" href="../pages/water-plumbing.html">Voda</a>
+					<a class="collapse-item" href="../pages/gas-plumbing.html">Plyn</a>
+					<a class="collapse-item" href="../pages/heating-plumbing.html">Kurenie</a>
+					<a class="collapse-item" href="../pages/boiler-plumbing.html">Kotle</a>
+					<a class="collapse-item" href="../pages/booking.html">Rezervovať termín</a>
+				</nav>
 			</div>
 		</div>
 		<main>
@@ -42,6 +40,16 @@
 					<div class="col-md-6">
 						<label for="name" class="form-label">Celé meno</label>
 						<input type="text" class="form-control" id="name" placeholder="Zadajte celé meno" required />
+					</div>
+					<div class="col-md-6">
+						<label for="serviceType" class="form-label">Druh opravy</label>
+						<select class="form-select" id="serviceType" required>
+							<option selected disabled value="">Vyber druh opravy...</option>
+							<option value="waterPlumbing">Voda</option>
+							<option value="gasPlumbing">Plyn</option>
+							<option value="heatingPlumbing">Kúrenie</option>
+							<option value="boilerPlumbing">Kotol</option>
+						</select>
 					</div>
 					<div class="col-md-6">
 						<label for="email" class="form-label">Emailová adresa</label>
