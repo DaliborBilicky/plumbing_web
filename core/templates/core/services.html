@@ -15,7 +15,7 @@
                          data-bs-target="#collapseService1"
                          aria-expanded="false"
                          aria-controls="collapseService1">
-                        <img src="../assets/images/tFI933tE.jpg"
+                        <img src="{% static 'images/tFI933tE.jpg' %}"
                              class="card-img-top"
                              alt="Service 1" />
                         <div class="card-body">
@@ -39,9 +39,9 @@
                          data-bs-target="#collapseService2"
                          aria-expanded="false"
                          aria-controls="collapseService2">
-                        <img src="../assets/images/services.jpg"
+                        <img src="{% static 'images/services.jpg' %}"
                              class="card-img-top"
-                             alt="Service 2" />
+                             alt="Service 1" />
                         <div class="card-body">
                             <h5 class="card-title">Nečakané opravy</h5>
                             <p class="card-text">Dostupný skoro celý deň. Konzultácie hocikedy.</p>
@@ -63,9 +63,9 @@
                          data-bs-target="#collapseService3"
                          aria-expanded="false"
                          aria-controls="collapseService3">
-                        <img src="../assets/images/IXgs6VLc.jpg"
+                        <img src="{% static 'images/IXgs6VLc.jpg' %}"
                              class="card-img-top"
-                             alt="Service 3" />
+                             alt="Service 1" />
                         <div class="card-body">
                             <h5 class="card-title">Čistenie odpadov</h5>
                             <p class="card-text">Profesionálne čistenie odpadov, trubiek.</p>
@@ -87,7 +87,7 @@
         <div class="container text-center">
             <h3>Potrebujete inštalatéra dnes?</h3>
             <p>Kontaktujete nás pre rýchle a kvalitné služby.</p>
-            <a href="booking.html" class="btn btn-success">Rezervuj si termín</a>
+            <a href="{% url 'booking' %}" class="btn btn-success">Rezervuj si termín</a>
         </div>
     </div>
 {% endblock %}

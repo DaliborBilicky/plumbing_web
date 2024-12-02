@@ -7,3 +7,7 @@ def homepage(request):
 
 def services(request):
     return render(request, "core/services.html")
+
+
+def booking(request):
+    return render(request, "core/booking.html")
