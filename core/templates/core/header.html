@@ -1,20 +1,29 @@
+{% load static %}
 <nav class="navbar navbar-dark bg-dark">
-	<div class="container-fluid">
-		<a class="navbar-brand" href="{% url 'homepage' %}">
-			<img class="header-logo" src="./assets/images/logo.jpg" alt="Company Logo" />
-			Inštalatérstvo Bilický s.r.o.
-		</a>
-		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-	</div>
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'homepage' %}">
+            <img class="header-logo"
+                 src="{% static 'images/logo.jpg' %}"
+                 alt="Company Logo" />
+            Inštalatérstvo Bilický s.r.o.
+        </a>
+        <button class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarToggleExternalContent"
+                aria-controls="navbarToggleExternalContent"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
 </nav>
 <div class="collapse" id="navbarToggleExternalContent">
-	<div class="bg-dark p-4">
-		<nav class="nav flex-column">
-			<a class="collapse-item" href="{% url 'homepage' %}">Hlavná stránka</a>
-			<a class="collapse-item" href="./pages/services.html">Služby</a>
-			<a class="collapse-item" href="./pages/booking.html">Rezervovať termín</a>
-		</nav>
-	</div>
+    <div class="bg-dark p-4">
+        <nav class="nav flex-column">
+            <a class="collapse-item" href="{% url 'homepage' %}">Hlavná stránka</a>
+            <a class="collapse-item" href="./pages/services.html">Služby</a>
+            <a class="collapse-item" href="./pages/booking.html">Rezervovať termín</a>
+        </nav>
+    </div>
 </div>
