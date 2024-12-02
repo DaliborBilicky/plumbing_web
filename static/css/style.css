@@ -5,7 +5,6 @@ body {
 	display: flex;
 	flex-direction: column;
 	min-height: 100vh;
-	background-color: rgb(42, 42, 42);
 }
 
 header,
@@ -40,7 +39,7 @@ main {
 	bottom: 20px;
 	left: 15px;
 	right: 15px;
-	color: white;
+	color: #fff;
 	text-align: center;
 }
 
@@ -53,7 +52,6 @@ main {
 }
 
 .text-container {
-	color: #fff;
 	padding: 30px;
 	position: relative;
 	z-index: 2;
