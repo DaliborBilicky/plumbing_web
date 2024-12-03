@@ -1,5 +1,5 @@
 {% load static %}
-<nav class="navbar navbar-dark bg-dark">
+<nav class="navbar fixed-top navbar-dark bg-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="{% url 'homepage' %}">
             <img class="header-logo"
@@ -17,13 +17,11 @@
             <span class="navbar-toggler-icon"></span>
         </button>
     </div>
-</nav>
-<div class="collapse" id="navbarToggleExternalContent">
-    <div class="bg-dark p-4">
-        <nav class="nav flex-column">
-            <a class="collapse-item" href="{% url 'homepage' %}">Hlavná stránka</a>
-            <a class="collapse-item" href="{% url 'services' %}">Služby</a>
-            <a class="collapse-item" href="{% url 'booking' %}">Rezervovať termín</a>
+    <div class="collapse" id="navbarToggleExternalContent">
+        <nav class="nav">
+            <a class="collapse-item nav-link" href="{% url 'homepage' %}">Hlavná stránka</a>
+            <a class="collapse-item nav-link" href="{% url 'services' %}">Služby</a>
+            <a class="collapse-item nav-link" href="{% url 'booking' %}">Rezervovať termín</a>
         </nav>
     </div>
-</div>
+</nav>
