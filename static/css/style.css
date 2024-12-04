@@ -90,3 +90,29 @@ main {
 	text-align: center;
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
+
+.list-group {
+	padding: 20px;
+}
+
+.confirm-card {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 50px;
+}
+
+.btn-light {
+	background-color: #f8f9fa;
+	border-color: #ddd;
+}
+
+.btn-danger {
+	background-color: #e74c3c;
+	border-color: #c0392b;
+}
+
+.btn-light:hover,
+.btn-danger:hover {
+	opacity: 0.8;
+}

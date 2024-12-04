@@ -1,3 +1,4 @@
+import re
 from datetime import datetime, time, timedelta
 
 from django import forms
@@ -21,7 +22,7 @@ class ReservationForm(forms.ModelForm):
 
     name = forms.CharField(
         label="Celé meno",
-        max_length=100,
+        max_length=120,
         widget=forms.TextInput(
             attrs={"class": "form-control", "placeholder": "Zadajte celé meno"}
         ),
