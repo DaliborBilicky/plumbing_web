@@ -1,58 +1,11 @@
 {% extends "core/base.html" %}
 {% block content %}
-    {% load static %}
     <div class="container mt-5">
+        {% if posted %}<div class="alert alert-success" role="alert">Zarezervovanie termínu úspešné</div>{% endif %}
         <h2 class="text-center mb-4">Zarezervujte si termín</h2>
-        <form class="row g-3">
-            <div class="col-md-6">
-                <label for="name" class="form-label">Celé meno</label>
-                <input type="text"
-                       class="form-control"
-                       id="name"
-                       placeholder="Zadajte celé meno"
-                       required />
-            </div>
-            <div class="col-md-6">
-                <label for="serviceType" class="form-label">Druh opravy</label>
-                <select class="form-select" id="serviceType" required>
-                    <option selected disabled value="">Vyber druh opravy...</option>
-                    <option value="waterPlumbing">Voda</option>
-                    <option value="gasPlumbing">Plyn</option>
-                    <option value="heatingPlumbing">Kúrenie</option>
-                    <option value="boilerPlumbing">Kotol</option>
-                </select>
-            </div>
-            <div class="col-md-6">
-                <label for="email" class="form-label">Emailová adresa</label>
-                <input type="email"
-                       class="form-control"
-                       id="email"
-                       placeholder="Zadajte email"
-                       required />
-            </div>
-            <div class="col-md-6">
-                <label for="phone" class="form-label">Telefóne číslo</label>
-                <input type="tel"
-                       class="form-control"
-                       id="phone"
-                       placeholder="Zadajte telefóne číslo"
-                       required />
-            </div>
-            <div class="col-md-6">
-                <label for="date" class="form-label">Dátum rezervácie</label>
-                <input type="date" class="form-control" id="date" required />
-            </div>
-            <div class="col-md-6">
-                <label for="time" class="form-label">Čas rezervácie</label>
-                <input type="time" class="form-control" id="time" required />
-            </div>
-            <div class="col-md-12">
-                <label for="specialRequests" class="form-label">Doplnkové informácie</label>
-                <textarea class="form-control"
-                          id="specialRequests"
-                          rows="3"
-                          placeholder="Text píšte sem"></textarea>
-            </div>
+        <form method="POST" class="row g-3">
+            {% csrf_token %}
+            {{ form.as_p }}
             <div class="col-12 text-center">
                 <button type="submit" class="btn btn-primary">Potvrdiť rezerváciu</button>
             </div>
