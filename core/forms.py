@@ -1,4 +1,3 @@
-import re
 from datetime import datetime, time, timedelta
 
 from django import forms
