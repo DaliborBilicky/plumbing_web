@@ -1,0 +1,31 @@
+{% extends "core/base.html" %}
+{% block content %}
+    {% load static %}
+    <div class="container">
+        <div class="row">
+            {% for reservation in reservations_list %}
+                <div class="col-md-6 mb-4">
+                    <ul class="list-group">
+                        <li class="list-group-item active d-flex justify-content-between align-items-center">
+                            <span>{{ reservation.get_service_type_display }}</span>
+                            <div>
+                                <a href="{% url 'reservation_edit' reservation.id %}"
+                                   class="btn btn-light btn-sm mx-1">
+                                    <i class="fas fa-wrench"></i>
+                                </a>
+                                <a href="{% url 'reservation_delete' reservation.id %}"
+                                   class="btn btn-danger btn-sm mx-1">
+                                    <i class="fas fa-trash-alt"></i>
+                                </a>
+                            </div>
+                        </li>
+                        <li class="list-group-item">{{ reservation.phone }}</li>
+                        <li class="list-group-item">{{ reservation.id }}</li>
+                        <li class="list-group-item">{{ reservation.date }}</li>
+                        <li class="list-group-item">{{ reservation.time }}</li>
+                    </ul>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
