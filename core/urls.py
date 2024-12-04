@@ -1,6 +1,7 @@
 from django.urls import path
 
 from . import views
+from .views import check_availability
 
 urlpatterns = [
     path("", views.homepage, name="homepage"),
@@ -13,4 +14,5 @@ urlpatterns = [
         views.delete_reservation,
         name="reservation_delete",
     ),
+    path("check_availability/", check_availability, name="check_availability"),
 ]

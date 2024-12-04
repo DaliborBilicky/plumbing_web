@@ -1,4 +1,6 @@
-from django.http import HttpResponseRedirect
+import json
+
+from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 
 from .forms import ReservationForm
@@ -56,3 +58,14 @@ def delete_reservation(request, reservation_id):
         return redirect("reservations")
 
     return render(request, "core/delete_confirm.html", {"reservation": reservation})
+
+
+def check_availability(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        date = data.get("date")
+        time = data.get("time")
+
+        available = not Reservation.objects.filter(date=date, time=time).exists()
+
+        return JsonResponse({"available": available})
