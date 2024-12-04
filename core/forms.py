@@ -2,6 +2,7 @@ from datetime import datetime, time, timedelta
 
 from django import forms
 from django.utils.timezone import make_aware, now
+from phonenumber_field.formfields import PhoneNumberField
 
 from .models import Reservation
 
@@ -46,7 +47,7 @@ class ReservationForm(forms.ModelForm):
         ),
     )
 
-    phone = forms.CharField(
+    phone = PhoneNumberField(
         label="Telefóne číslo",
         max_length=15,
         widget=forms.TextInput(
