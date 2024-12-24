@@ -1,5 +1,6 @@
 import json
 
+from django.core.paginator import Paginator
 from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 
@@ -31,8 +32,17 @@ def booking(request):
 
 def reservations(request):
     reservations_list = Reservation.objects.all()
+    paginator = Paginator(reservations_list, 10)
+    page = request.GET.get("page")
+    reservations_page = paginator.get_page(page)
+
     return render(
-        request, "core/reservations.html", {"reservations_list": reservations_list}
+        request,
+        "core/reservations.html",
+        {
+            "reservations_list": reservations_list,
+            "reservations_page": reservations_page,
+        },
     )
 
 
