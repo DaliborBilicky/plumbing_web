@@ -36,6 +36,14 @@ libraries
 pip install -r requirements.txt
 ```
 
+### Database migration
+
+Before running server you need to create DB tables using migrations
+
+```bash
+python manage.py migrate
+```
+
 ### Usage
 
 To start app open terminal and run this command.
