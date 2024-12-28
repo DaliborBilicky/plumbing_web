@@ -2,9 +2,9 @@
 
 ## Table of contents
 
--   [Description](#description)
--   [Download and install](#download-and-install)
--   [Usage](#usage)
+- [Description](#description)
+- [Download and install](#download-and-install)
+- [Usage](#usage)
 
 ## Description
 
@@ -39,9 +39,12 @@ pip install -r requirements.txt
 ### Database migration
 
 Before running server you need to create DB tables using migrations
+and also superuser is needed
 
 ```bash
+python manage.py makemigrations
 python manage.py migrate
+python manage.py createsuperuser
 ```
 
 ## Usage
