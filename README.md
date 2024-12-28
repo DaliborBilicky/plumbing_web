@@ -44,7 +44,7 @@ Before running server you need to create DB tables using migrations
 python manage.py migrate
 ```
 
-### Usage
+## Usage
 
 To start app open terminal and run this command.
 

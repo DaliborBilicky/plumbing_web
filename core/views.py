@@ -1,5 +1,7 @@
 import json
 
+from django.contrib.auth import login
+from django.contrib.auth.forms import AuthenticationForm
 from django.core.paginator import Paginator
 from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
@@ -79,3 +81,15 @@ def check_availability(request):
         available = not Reservation.objects.filter(date=date, time=time).exists()
 
         return JsonResponse({"available": available})
+
+
+def login_view(request):
+    if request.method == "POST":
+        form = AuthenticationForm(data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            return redirect("homepage")
+    else:
+        form = AuthenticationForm()
+    return render(request, "core/login.html", {"form": form})
