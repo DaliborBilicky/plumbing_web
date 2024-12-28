@@ -1,12 +1,29 @@
 from datetime import datetime, time, timedelta
 
 from django import forms
+from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
 from django.utils.timezone import make_aware, now
 from phonenumber_field.formfields import PhoneNumberField
 
 from .models import Reservation
 
 
+class LoginForm(forms.Form):
+    username = forms.CharField(
+        label="",
+        max_length=100,
+        widget=forms.TextInput(
+            attrs={"class": "form-control", "placeholder": "Pouzivatelske meno"}
+        ),
+    )
+
+    password = forms.CharField(
+        label="",
+        widget=forms.PasswordInput(
+            attrs={"class": "form-control", "placeholder": "Heslo"}
+        ),
+    )
 class ReservationForm(forms.ModelForm):
     class Meta:
         model = Reservation

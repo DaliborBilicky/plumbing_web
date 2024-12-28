@@ -1,12 +1,12 @@
 import json
 
-from django.contrib.auth import login
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 
-from .forms import ReservationForm
+from .forms import LoginForm, ProfileEditForm, ReservationForm, SignUpForm
 from .models import Reservation
 
 
@@ -23,7 +23,9 @@ def booking(request):
     if request.method == "POST":
         form = ReservationForm(request.POST)
         if form.is_valid():
-            form.save()
+            reservation = form.save(commit=False)
+            reservation.user = request.user
+            reservation.save()
             return HttpResponseRedirect("/booking?posted=True")
     else:
         form = ReservationForm()
@@ -85,11 +87,16 @@ def check_availability(request):
 
 def login_view(request):
     if request.method == "POST":
-        form = AuthenticationForm(data=request.POST)
+        form = LoginForm(request.POST)
         if form.is_valid():
-            user = form.get_user()
-            login(request, user)
-            return redirect("homepage")
+            username = form.cleaned_data.get("username")
+            password = form.cleaned_data.get("password")
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect("homepage")
+            else:
+                form.add_error(None, "Invalid username or password")
     else:
-        form = AuthenticationForm()
+        form = LoginForm()
     return render(request, "core/login.html", {"form": form})

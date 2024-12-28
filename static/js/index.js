@@ -81,3 +81,17 @@ document.addEventListener('DOMContentLoaded', function() {
 		}
 	}
 })
+
+document.addEventListener('DOMContentLoaded', () => {
+	const showPasswordCheckbox = document.getElementById('showPasswordCheckbox')
+	if (showPasswordCheckbox) {
+		showPasswordCheckbox.addEventListener('change', function () {
+			const passwordField = document.querySelector(
+				'input[name="password"]'
+			)
+			if (passwordField) {
+				passwordField.type = this.checked ? 'text' : 'password'
+			}
+		})
+	}
+})
