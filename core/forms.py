@@ -28,22 +28,11 @@ class ReservationForm(forms.ModelForm):
     class Meta:
         model = Reservation
         fields = [
-            "name",
             "service_type",
-            "email",
-            "phone",
             "date",
             "time",
             "special_requests",
         ]
-
-    name = forms.CharField(
-        label="Celé meno",
-        max_length=120,
-        widget=forms.TextInput(
-            attrs={"class": "form-control", "placeholder": "Zadajte celé meno"}
-        ),
-    )
 
     service_type = forms.ChoiceField(
         label="Druh opravy",
@@ -55,21 +44,6 @@ class ReservationForm(forms.ModelForm):
             ("boilerPlumbing", "Kotol"),
         ],
         widget=forms.Select(attrs={"class": "form-select"}),
-    )
-
-    email = forms.EmailField(
-        label="Emailová adresa",
-        widget=forms.EmailInput(
-            attrs={"class": "form-control", "placeholder": "Zadajte email"}
-        ),
-    )
-
-    phone = PhoneNumberField(
-        label="Telefóne číslo",
-        max_length=15,
-        widget=forms.TextInput(
-            attrs={"class": "form-control", "placeholder": "Zadajte telefóne číslo"}
-        ),
     )
 
     date = forms.DateField(
