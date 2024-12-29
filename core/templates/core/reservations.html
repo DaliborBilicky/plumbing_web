@@ -26,44 +26,47 @@
             {% endfor %}
         </div>
     </div>
+    <!-- Pagination -->
     <nav aria-label="Page navigation" class="mt-4">
-        <ul class="pagination justify-content-center">
-            {% if reservations_page.has_previous %}
-                <li class="page-item">
-                    <a class="page-link" href="?page=1">&laquo; Prva</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link"
-                       href="?page={{ reservations_page.previous_page_number }}">Predchadzajuca</a>
-                </li>
-            {% else %}
+        <div class="container-fluid">
+            <ul class="pagination justify-content-center d-flex flex-wrap">
+                {% if reservations_page.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page=1">&laquo; Prva</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link"
+                           href="?page={{ reservations_page.previous_page_number }}">Predchadzajuca</a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link">&laquo; Prva</a>
+                    </li>
+                    <li class="page-item disabled">
+                        <a class="page-link">Predchadzajuca</a>
+                    </li>
+                {% endif %}
                 <li class="page-item disabled">
-                    <a class="page-link">&laquo; Prva</a>
+                    <a class="page-link">Stranka {{ reservations_page.number }} z {{ reservations_page.paginator.num_pages }}</a>
                 </li>
-                <li class="page-item disabled">
-                    <a class="page-link">Predchadzajuca</a>
-                </li>
-            {% endif %}
-            <li class="page-item disabled">
-                <a class="page-link">Stranka {{ reservations_page.number }} z {{ reservations_page.paginator.num_pages }}</a>
-            </li>
-            {% if reservations_page.has_next %}
-                <li class="page-item">
-                    <a class="page-link"
-                       href="?page={{ reservations_page.next_page_number }}">Dalsia</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link"
-                       href="?page={{ reservations_page.paginator.num_pages }}">Posledna &raquo;</a>
-                </li>
-            {% else %}
-                <li class="page-item disabled">
-                    <a class="page-link">Dalsia</a>
-                </li>
-                <li class="page-item disabled">
-                    <a class="page-link">Posledna &raquo;</a>
-                </li>
-            {% endif %}
-        </ul>
+                {% if reservations_page.has_next %}
+                    <li class="page-item">
+                        <a class="page-link"
+                           href="?page={{ reservations_page.next_page_number }}">Dalsia</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link"
+                           href="?page={{ reservations_page.paginator.num_pages }}">Posledna &raquo;</a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link">Dalsia</a>
+                    </li>
+                    <li class="page-item disabled">
+                        <a class="page-link">Posledna &raquo;</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
     </nav>
 {% endblock %}

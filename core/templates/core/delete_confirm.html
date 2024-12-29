@@ -1,15 +1,21 @@
 {% extends "core/base.html" %}
 {% block content %}
-    <div class="container confirm-card">
-        <div class="col-md-6 card text-center">
-            <h3 class="card-header">Ste si ístý, že chcete zmazať rezerváciu?</h3>
-            <div class="card-body">
-                <p class="card-text">{{ reservation.get_service_type_display }} - {{ reservation.date }} o {{ reservation.time }}</p>
-                <form method="POST">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-danger">Zmazať</button>
-                    <a href="{% url 'reservations' %}" class="btn btn-secondary">Zrušiť</a>
-                </form>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="bg-light p-4 border rounded shadow-sm text-center">
+                    <h3>Ste si istí, že chcete zmazať rezerváciu?</h3>
+                    <p class="card-text">{{ reservation.get_service_type_display }} - {{ reservation.date }} o {{ reservation.time }}</p>
+                    <form method="POST">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <button type="submit" class="btn btn-danger w-100">Zmazať</button>
+                        </div>
+                        <div class="mb-3">
+                            <a href="{% url 'reservations' %}" class="btn btn-secondary w-100">Zrušiť</a>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

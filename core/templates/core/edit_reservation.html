@@ -2,13 +2,57 @@
 {% block content %}
     {% load static %}
     <div class="container mt-5">
-        <h2 class="text-center mb-4">Upraviť rezerváciu</h2>
-        <form method="POST" class="row g-3">
-            {% csrf_token %} {{ form.as_p }}
-            <div class="col-12 text-center">
-                <button type="submit" class="btn btn-primary">Uložiť zmeny</button>
-                <a href="{% url 'reservations' %}" class="btn btn-secondary">Späť</a>
+        <h1 class="text-center mb-4">Upraviť rezerváciu</h1>
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="bg-light p-4 border rounded shadow-sm">
+                    <form method="POST" class="row g-3">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            {{ form.service_type.label_tag }}
+                            {{ form.service_type }}
+                            {% if form.service_type.errors %}
+                                <div class="alert alert-danger small mt-2">
+                                    {% for error in form.service_type.errors %}<p>{{ error }}</p>{% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="mb-3">
+                            {{ form.date.label_tag }}
+                            {{ form.date }}
+                            {% if form.date.errors %}
+                                <div class="alert alert-danger small mt-2">
+                                    {% for error in form.date.errors %}<p>{{ error }}</p>{% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="mb-3">
+                            {{ form.time.label_tag }}
+                            {{ form.time }}
+                            {% if form.time.errors %}
+                                <div class="alert alert-danger small mt-2">
+                                    {% for error in form.time.errors %}<p>{{ error }}</p>{% endfor %}
+                                </div>
+                            {% endif %}
+                            <div id="availabilityMessage"></div>
+                        </div>
+                        <div class="mb-3">
+                            {{ form.special_requests.label_tag }}
+                            {{ form.special_requests }}
+                            {% if form.special_requests.errors %}
+                                <div class="alert alert-danger small mt-2">
+                                    {% for error in form.special_requests.errors %}<p>{{ error }}</p>{% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="col-12 text-center">
+                            <button type="submit" class="btn btn-primary w-100">Uložiť zmeny</button>
+                            <a href="{% url 'reservations' %}" class="btn btn-secondary w-100 mt-2">Späť</a>
+                        </div>
+                    </form>
+                </div>
             </div>
-        </form>
+        </div>
     </div>
+    <br />
 {% endblock %}

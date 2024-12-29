@@ -1,33 +1,33 @@
 {% extends "core/base.html" %}
 {% block content %}
     {% load static %}
-    {% if form.non_field_errors %}<div class="alert alert-danger mt-2">{{ form.non_field_errors }}</div>{% endif %}
     <div class="container mt-5">
+        <h1 class="text-center">Prihlasit sa</h1>
         <div class="row justify-content-center">
             <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header text-center">
-                        <h3>Prihlasit sa</h3>
+                <form method="post" class="bg-light p-4 border rounded shadow-sm">
+                    {% csrf_token %}
+                    {% if form.non_field_errors %}<div class="alert alert-danger mt-2">{{ form.non_field_errors }}</div>{% endif %}
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Pouzivatelske meno</label>
+                        {{ form.username }}
                     </div>
-                    <div class="card-body">
-                        <form method="post">
-                            {% csrf_token %}
-                            <div class="mb-3">{{ form.username }}</div>
-                            <div class="mb-3">
-                                {{ form.password }}
-                                <div class="form-check mt-2 form-switch">
-                                    <label for="showPasswordCheckbox" class="form-check-label">Zobraz heslo</label>
-                                    <input type="checkbox" class="form-check-input" id="showPasswordCheckbox">
-                                </div>
-                            </div>
-                            <div class="d-grid">
-                                <button type="submit" class="btn btn-primary btn-block">Prihlasit</button>
-                            </div>
-                        </form>
-                        <div class="text-center mt-3">
-                            <a href="#">Nemate ucet? Zaregistrovat</a>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Heslo</label>
+                        {{ form.password }}
+                        <div class="form-check mt-2 form-switch">
+                            <label for="showPasswordCheckbox" class="form-check-label">Zobraz heslo</label>
+                            <input type="checkbox" class="form-check-input" id="showPasswordCheckbox">
                         </div>
                     </div>
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary btn-block">Prihlasit</button>
+                    </div>
+                </form>
+                <div class="text-center mt-3">
+                    <a href="#">Nemate ucet? Zaregistrovat</a>
+                    <br>
+                    <a href="{% url 'password_reset' %}">Zabudli ste heslo?</a>
                 </div>
             </div>
         </div>
