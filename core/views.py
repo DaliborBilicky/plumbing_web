@@ -1,7 +1,6 @@
 import json
 
-from django.contrib import messages
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator
@@ -149,22 +148,31 @@ def profile_edit_view(request):
 
 
 def password_reset(request):
+    message = None
+    message_class = None
+
     if request.method == "POST":
         username = request.POST.get("username")
         new_password = request.POST.get("new_password")
         confirm_password = request.POST.get("confirm_password")
 
         if new_password != confirm_password:
-            messages.error(request, "Passwords do not match!")
-            return render(request, "core/password_reset.html")
+            message = "Heslá sa nezhodujú!"
+            message_class = "alert-danger"
+        else:
+            try:
+                user = User.objects.get(username=username)
+                user.set_password(new_password)
+                user.save()
+                logout(request)
+                message = "Heslo bolo úspešne obnovené! Musíte sa prihlásiť znova."
+                message_class = "alert-success"
+            except User.DoesNotExist:
+                message = "Používateľ s týmto menom neexistuje!"
+                message_class = "alert-danger"
 
-        try:
-            user = User.objects.get(username=username)
-            user.set_password(new_password)
-            user.save()
-            messages.success(request, "Password reset successfully!")
-            return redirect("login")
-        except User.DoesNotExist:
-            messages.error(request, "User with this username does not exist!")
-
-    return render(request, "core/password_reset.html")
+    return render(
+        request,
+        "core/password_reset.html",
+        {"message": message, "message_class": message_class},
+    )

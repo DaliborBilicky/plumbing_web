@@ -27,16 +27,25 @@ class LoginForm(forms.Form):
 
 
 class ProfileEditForm(forms.ModelForm):
+    username = forms.CharField(
+        label="Pouzivatelske meno",
+        max_length=100,
+        widget=forms.TextInput(
+            attrs={"class": "form-control", "placeholder": "Zadajte pouzivatelske meno"}
+        ),
+    )
     first_name = forms.CharField(
         label="Meno",
         max_length=30,
-        widget=forms.TextInput(attrs={"class": "form-control", "placeholder": "Meno"}),
+        widget=forms.TextInput(
+            attrs={"class": "form-control", "placeholder": "Zadajte meno"}
+        ),
     )
     last_name = forms.CharField(
         label="Priezvisko",
         max_length=30,
         widget=forms.TextInput(
-            attrs={"class": "form-control", "placeholder": "Priezvisko"}
+            attrs={"class": "form-control", "placeholder": "Zadajte priezvisko"}
         ),
     )
     email = forms.EmailField(
@@ -55,7 +64,7 @@ class ProfileEditForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ["first_name", "last_name", "email"]
+        fields = ["username", "first_name", "last_name", "email"]
 
     def __init__(self, *args, **kwargs):
         self.user_profile = kwargs.pop("user_profile", None)
@@ -88,13 +97,15 @@ class SignUpForm(forms.ModelForm):
     first_name = forms.CharField(
         label="Meno",
         max_length=30,
-        widget=forms.TextInput(attrs={"class": "form-control", "placeholder": "Meno"}),
+        widget=forms.TextInput(
+            attrs={"class": "form-control", "placeholder": "Zadajte meno"}
+        ),
     )
     last_name = forms.CharField(
         label="Priezvisko",
         max_length=30,
         widget=forms.TextInput(
-            attrs={"class": "form-control", "placeholder": "Priezvisko"}
+            attrs={"class": "form-control", "placeholder": "Zadajte priezvisko"}
         ),
     )
     email = forms.EmailField(
@@ -106,7 +117,7 @@ class SignUpForm(forms.ModelForm):
     password = forms.CharField(
         label="Heslo",
         widget=forms.PasswordInput(
-            attrs={"class": "form-control", "placeholder": "Heslo"}
+            attrs={"class": "form-control", "placeholder": "Zadajte heslo"}
         ),
     )
     password_confirmation = forms.CharField(

@@ -158,3 +158,39 @@ document.addEventListener('DOMContentLoaded', function () {
 		}
 	}
 })
+
+function togglePassword(fieldId) {
+	const field = document.getElementById(fieldId)
+	field.type = field.type === 'password' ? 'text' : 'password'
+}
+
+const resetPasswordForm = document.getElementById('resetPasswordForm')
+const newPassword = document.getElementById('new_password')
+const confirmPassword = document.getElementById('confirm_password')
+const passwordFeedback = document.getElementById('passwordFeedback')
+
+function updatePasswordFeedback() {
+	if (
+		newPassword.value === confirmPassword.value &&
+		newPassword.value !== ''
+	) {
+		passwordFeedback.textContent = 'Heslá sa zhodujú!'
+		passwordFeedback.className = 'text-success mb-3'
+		passwordFeedback.style.display = 'block'
+	} else {
+		passwordFeedback.textContent = 'Heslá sa nezhodujú!'
+		passwordFeedback.className = 'text-danger mb-3'
+		passwordFeedback.style.display = 'block'
+	}
+}
+
+confirmPassword.addEventListener('input', updatePasswordFeedback)
+newPassword.addEventListener('input', updatePasswordFeedback)
+
+resetPasswordForm.addEventListener('submit', () => {
+	if (newPassword.value !== confirmPassword.value) {
+		passwordFeedback.textContent = 'Heslá sa nezhodujú!'
+		passwordFeedback.className = 'text-danger mb-3'
+		passwordFeedback.style.display = 'block'
+	}
+})
