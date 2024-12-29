@@ -35,7 +35,7 @@ def booking(request):
 
 
 def reservations(request):
-    reservations_list = Reservation.objects.all()
+    reservations_list = Reservation.objects.filter(user=request.user)
     paginator = Paginator(reservations_list, 10)
     page = request.GET.get("page")
     reservations_page = paginator.get_page(page)
@@ -61,7 +61,11 @@ def edit_reservation(request, reservation_id):
     else:
         form = ReservationForm(instance=reservation)
 
-    return render(request, "core/edit.html", {"form": form, "reservation": reservation})
+    return render(
+        request,
+        "core/edit_reservation.html",
+        {"form": form, "reservation": reservation},
+    )
 
 
 def delete_reservation(request, reservation_id):
