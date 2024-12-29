@@ -111,3 +111,50 @@ document.addEventListener('DOMContentLoaded', () => {
 		})
 	}
 })
+
+document.addEventListener('DOMContentLoaded', function () {
+	const passwordField = document.querySelector('[name="password"]')
+	const confirmPasswordField = document.querySelector(
+		'[name="password_confirmation"]'
+	)
+	const passwordMatchMessage = document.getElementById('passwordMatchMessage')
+
+	if (!passwordField || !confirmPasswordField || !passwordMatchMessage) return
+
+	confirmPasswordField.addEventListener('input', checkPasswordMatch)
+
+	async function checkPasswordMatch() {
+		const password = passwordField.value
+		const confirmPassword = confirmPasswordField.value
+
+		if (password !== '' && confirmPassword !== '') {
+			try {
+				const response = await fetch('/check_password_match/', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+						'X-CSRFToken': document.querySelector(
+							'[name="csrfmiddlewaretoken"]'
+						).value,
+					},
+					body: JSON.stringify({
+						password: password,
+						confirm_password: confirmPassword,
+					}),
+				})
+				const data = await response.json()
+				if (data.match) {
+					passwordMatchMessage.textContent = 'Heslá sa zhodujú'
+					passwordMatchMessage.style.color = 'green'
+				} else {
+					passwordMatchMessage.textContent = 'Heslá sa nezhodujú'
+					passwordMatchMessage.style.color = 'red'
+				}
+			} catch (error) {
+				console.error('Error during password check:', error)
+			}
+		} else {
+			passwordMatchMessage.textContent = ''
+		}
+	}
+})
