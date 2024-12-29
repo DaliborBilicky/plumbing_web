@@ -15,7 +15,7 @@ class Reservation(models.Model):
         User,
         on_delete=models.CASCADE,
         related_name="reservations",
-        verbose_name="Užívateľ",
+        verbose_name="Používateľ",
     )
 
     service_type = models.CharField(
@@ -30,7 +30,12 @@ class Reservation(models.Model):
 
 
 class UserProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
+    user = models.OneToOneField(
+        User,
+        on_delete=models.CASCADE,
+        related_name="profile",
+        verbose_name="Používateľ",
+    )
     phone = PhoneNumberField(
         null=True, blank=True, max_length=15, verbose_name="Telefóne číslo"
     )

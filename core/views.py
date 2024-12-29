@@ -1,7 +1,9 @@
 import json
 
+from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.core.paginator import Paginator
 from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
@@ -144,3 +146,25 @@ def profile_edit_view(request):
         form = ProfileEditForm(instance=user, user_profile=user_profile)
 
     return render(request, "core/edit_profile.html", {"form": form})
+
+
+def password_reset(request):
+    if request.method == "POST":
+        username = request.POST.get("username")
+        new_password = request.POST.get("new_password")
+        confirm_password = request.POST.get("confirm_password")
+
+        if new_password != confirm_password:
+            messages.error(request, "Passwords do not match!")
+            return render(request, "core/password_reset.html")
+
+        try:
+            user = User.objects.get(username=username)
+            user.set_password(new_password)
+            user.save()
+            messages.success(request, "Password reset successfully!")
+            return redirect("login")
+        except User.DoesNotExist:
+            messages.error(request, "User with this username does not exist!")
+
+    return render(request, "core/password_reset.html")
