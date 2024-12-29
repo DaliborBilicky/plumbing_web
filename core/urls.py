@@ -1,7 +1,7 @@
 from django.urls import path
 
 from . import views
-from .views import check_availability, login_view
+from .views import check_availability, login_view, signup_view
 
 urlpatterns = [
     path("", views.homepage, name="homepage"),
@@ -19,5 +19,10 @@ urlpatterns = [
         name="reservation_delete",
     ),
     path("check_availability/", check_availability, name="check_availability"),
+    path("signup/", signup_view, name="signup"),
     path("login/", login_view, name="login"),
+    path(
+        "check_password_match/", views.check_password_match, name="check_password_match"
+    ),
+    path("profile/edit/", views.profile_edit_view, name="profile_edit"),
 ]

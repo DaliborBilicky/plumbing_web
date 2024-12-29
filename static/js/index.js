@@ -1,6 +1,6 @@
 const scrollToTopBtn = document.getElementById('scrollToTopBtn')
 
-window.onscroll = function() {
+window.onscroll = function () {
 	if (
 		document.body.scrollTop > 200 ||
 		document.documentElement.scrollTop > 200
@@ -11,7 +11,7 @@ window.onscroll = function() {
 	}
 }
 
-scrollToTopBtn.onclick = function() {
+scrollToTopBtn.onclick = function () {
 	window.scrollTo({
 		top: 0,
 		behavior: 'smooth',
@@ -20,7 +20,7 @@ scrollToTopBtn.onclick = function() {
 
 function deleteReservation(reservationId) {
 	if (confirm('Ste si istý, že chcete zmazať rezerváciu?')) {
-		fetch(`/delete/${reservationId}/`, {
+		fetch(`reservation/delete/${reservationId}/`, {
 			method: 'POST',
 			headers: {
 				'X-CSRFToken': '{{ csrf_token }}',
@@ -35,7 +35,7 @@ function deleteReservation(reservationId) {
 	}
 }
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
 	const dateField = document.querySelector('[name="date"]')
 	const timeField = document.querySelector('[name="time"]')
 	const availabilityMessage = document.getElementById('availabilityMessage')
@@ -88,6 +88,22 @@ document.addEventListener('DOMContentLoaded', () => {
 		showPasswordCheckbox.addEventListener('change', function () {
 			const passwordField = document.querySelector(
 				'input[name="password"]'
+			)
+			if (passwordField) {
+				passwordField.type = this.checked ? 'text' : 'password'
+			}
+		})
+	}
+})
+
+document.addEventListener('DOMContentLoaded', () => {
+	const showPasswordCheckbox = document.getElementById(
+		'showPasswordCheckbox2'
+	)
+	if (showPasswordCheckbox) {
+		showPasswordCheckbox.addEventListener('change', function () {
+			const passwordField = document.querySelector(
+				'input[name="password_confirmation"]'
 			)
 			if (passwordField) {
 				passwordField.type = this.checked ? 'text' : 'password'

@@ -104,3 +104,43 @@ def login_view(request):
     else:
         form = LoginForm()
     return render(request, "core/login.html", {"form": form})
+
+
+def signup_view(request):
+    if request.method == "POST":
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect("profile_edit")
+    else:
+        form = SignUpForm()
+
+    return render(request, "core/signup.html", {"form": form})
+
+
+def check_password_match(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        password = data.get("password")
+        confirm_password = data.get("confirm_password")
+
+        match = password == confirm_password
+
+        return JsonResponse({"match": match})
+
+
+@login_required
+def profile_edit_view(request):
+    user = request.user
+    user_profile = user.profile
+
+    if request.method == "POST":
+        form = ProfileEditForm(request.POST, instance=user, user_profile=user_profile)
+        if form.is_valid():
+            form.save()
+            return redirect("homepage")
+    else:
+        form = ProfileEditForm(instance=user, user_profile=user_profile)
+
+    return render(request, "core/edit_profile.html", {"form": form})

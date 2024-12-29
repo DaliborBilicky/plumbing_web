@@ -24,6 +24,116 @@ class LoginForm(forms.Form):
             attrs={"class": "form-control", "placeholder": "Heslo"}
         ),
     )
+
+
+class ProfileEditForm(forms.ModelForm):
+    first_name = forms.CharField(
+        label="Meno",
+        max_length=30,
+        widget=forms.TextInput(attrs={"class": "form-control", "placeholder": "Meno"}),
+    )
+    last_name = forms.CharField(
+        label="Priezvisko",
+        max_length=30,
+        widget=forms.TextInput(
+            attrs={"class": "form-control", "placeholder": "Priezvisko"}
+        ),
+    )
+    email = forms.EmailField(
+        label="Emailová adresa",
+        widget=forms.EmailInput(
+            attrs={"class": "form-control", "placeholder": "Zadajte email"}
+        ),
+    )
+    phone = PhoneNumberField(
+        label="Telefóne číslo",
+        max_length=15,
+        widget=forms.TextInput(
+            attrs={"class": "form-control", "placeholder": "Zadajte telefóne číslo"}
+        ),
+    )
+
+    class Meta:
+        model = User
+        fields = ["first_name", "last_name", "email"]
+
+    def __init__(self, *args, **kwargs):
+        self.user_profile = kwargs.pop("user_profile", None)
+        super().__init__(*args, **kwargs)
+        if self.user_profile:
+            self.fields["phone"].initial = self.user_profile.phone
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        if commit:
+            user.save()
+        if self.user_profile:
+            self.user_profile.phone = self.cleaned_data.get("phone")
+            self.user_profile.save()
+        return user
+
+
+class SignUpForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ["first_name", "last_name", "username", "email", "password"]
+
+    username = forms.CharField(
+        label="Pouzivatelske meno",
+        max_length=120,
+        widget=forms.TextInput(
+            attrs={"class": "form-control", "placeholder": "Zadajte pouzivatelske meno"}
+        ),
+    )
+    first_name = forms.CharField(
+        label="Meno",
+        max_length=30,
+        widget=forms.TextInput(attrs={"class": "form-control", "placeholder": "Meno"}),
+    )
+    last_name = forms.CharField(
+        label="Priezvisko",
+        max_length=30,
+        widget=forms.TextInput(
+            attrs={"class": "form-control", "placeholder": "Priezvisko"}
+        ),
+    )
+    email = forms.EmailField(
+        label="Emailová adresa",
+        widget=forms.EmailInput(
+            attrs={"class": "form-control", "placeholder": "Zadajte email"}
+        ),
+    )
+    password = forms.CharField(
+        label="Heslo",
+        widget=forms.PasswordInput(
+            attrs={"class": "form-control", "placeholder": "Heslo"}
+        ),
+    )
+    password_confirmation = forms.CharField(
+        label="Potvrdit heslo",
+        widget=forms.PasswordInput(
+            attrs={"class": "form-control", "placeholder": "Potvrdit heslo"}
+        ),
+    )
+
+    def clean(self):
+        cleaned_data = super().clean()
+        password = cleaned_data.get("password")
+        password_confirmation = cleaned_data.get("password_confirmation")
+
+        if password and password_confirmation and password != password_confirmation:
+            raise ValidationError("Passwords do not match")
+
+        return cleaned_data
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.set_password(self.cleaned_data["password"])
+        if commit:
+            user.save()
+        return user
+
+
 class ReservationForm(forms.ModelForm):
     class Meta:
         model = Reservation
