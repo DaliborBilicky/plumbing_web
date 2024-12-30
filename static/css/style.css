@@ -116,3 +116,32 @@ main {
 .btn-danger:hover {
 	opacity: 0.8;
 }
+
+.btn-close {
+	background-color: #fff;
+}
+
+.dropdown-menu {
+	background-color: #343a40;
+	border: none;
+}
+
+.dropdown-item {
+	color: #fff;
+}
+
+.dropdown-item:hover {
+	background-color: #0275d8;
+	color: #fff;
+}
+
+.offcanvas-body .nav-link:hover {
+	background-color: #0275d8;
+	color: #fff;
+}
+
+@media (max-width: 400px) {
+	.header-logo {
+		height: 40px;
+	}
+}

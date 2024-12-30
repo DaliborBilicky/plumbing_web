@@ -1,7 +1,8 @@
 {% load static %}
-<nav class="navbar fixed-top navbar-dark bg-dark">
+<nav class="navbar navbar-dark bg-dark fixed-top">
     <div class="container-fluid">
-        <a class="navbar-brand" href="{% url 'homepage' %}">
+        <a class="navbar-brand d-flex align-items-center"
+           href="{% url 'homepage' %}">
             <img class="header-logo"
                  src="{% static 'images/logo.jpg' %}"
                  alt="Company Logo" />
@@ -9,21 +10,63 @@
         </a>
         <button class="navbar-toggler"
                 type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#navbarToggleExternalContent"
-                aria-controls="navbarToggleExternalContent"
+                data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasMenu"
+                aria-controls="offcanvasMenu"
                 aria-expanded="false"
                 aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
     </div>
-    <div class="collapse" id="navbarToggleExternalContent">
-        <nav class="nav">
-            <a class="collapse-item nav-link" href="{% url 'homepage' %}">Hlavná stránka</a>
-            <a class="collapse-item nav-link" href="{% url 'services' %}">Služby</a>
-            <a class="collapse-item nav-link" href="{% url 'booking' %}">Rezervovať termín</a>
-            <a class="collapse-item nav-link" href="{% url 'login' %}">Prihlasit</a>
-            <a class="collapse-item nav-link" href="{% url 'logout' %}">Odhlasit</a>
+</nav>
+<div class="offcanvas offcanvas-start bg-dark"
+     tabindex="-1"
+     id="offcanvasMenu"
+     aria-labelledby="offcanvasMenuLabel">
+    <div class="offcanvas-header">
+        <div class="container-fluid d-flex align-items-center justify-content-between">
+            <button type="button"
+                    class="btn-close text-white"
+                    data-bs-dismiss="offcanvas"
+                    aria-label="Close"></button>
+            <div class="nav-item dropdown">
+                <a class="nav-link text-light dropdown-toggle"
+                   href="#"
+                   id="navbarDropdown"
+                   role="button"
+                   data-bs-toggle="dropdown"
+                   aria-expanded="false">
+                    <i class="fas fa-user-circle fa-2x"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end"
+                    aria-labelledby="navbarDropdown">
+                    {% if user.is_authenticated %}
+                        <li>
+                            <a class="dropdown-item" href="{% url 'profile_edit' %}">Profil: {{ user.first_name }}</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="{% url 'logout' %}">Odhlásiť</a>
+                        </li>
+                    {% else %}
+                        <li>
+                            <a class="dropdown-item" href="{% url 'login' %}">Prihlásiť</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="{% url 'signup' %}">Registrovať</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="offcanvas-body">
+        <nav class="nav flex-column">
+            <a class="nav-link text-light" href="{% url 'homepage' %}">Hlavná stránka</a>
+            <a class="nav-link text-light" href="{% url 'services' %}">Služby</a>
+            {% if user.is_authenticated %}
+                <a class="nav-link text-light" href="{% url 'booking' %}">Rezervovať termín</a>
+                <a class="nav-link text-light" href="{% url 'reservations' %}">Moje rezervácie</a>
+            {% endif %}
         </nav>
     </div>
-</nav>
+</div>
