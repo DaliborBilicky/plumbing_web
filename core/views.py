@@ -130,8 +130,6 @@ def check_password_match(request):
 
         return JsonResponse({"match": match})
 
-
-@login_required
 def profile_edit_view(request):
     user = request.user
     user_profile = user.profile
@@ -176,3 +174,12 @@ def password_reset(request):
         "core/password_reset.html",
         {"message": message, "message_class": message_class},
     )
+
+
+@login_required
+def logout_view(request):
+    if request.method == "POST":
+        logout(request)
+        return redirect("homepage")
+
+    return render(request, "core/logout.html")

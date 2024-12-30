@@ -20,6 +20,7 @@ urlpatterns = [
     path("check_availability/", views.check_availability, name="check_availability"),
     path("signup/", views.signup_view, name="signup"),
     path("login/", views.login_view, name="login"),
+    path("logout/", views.logout_view, name="logout"),
     path(
         "check_password_match/", views.check_password_match, name="check_password_match"
     ),

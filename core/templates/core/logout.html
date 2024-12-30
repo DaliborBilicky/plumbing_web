@@ -1,0 +1,22 @@
+{% extends "core/base.html" %}
+{% block content %}
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="bg-light p-4 border rounded shadow-sm text-center">
+                    <h3>Ste si istí, že chcete odhlásiť?</h3>
+                    <p class="card-text">Ak sa odhlásite, budete musieť znova zadať svoje prihlasovacie údaje.</p>
+                    <form method="POST">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <button type="submit" class="btn btn-danger w-100">Odhlásiť sa</button>
+                        </div>
+                        <div class="mb-3">
+                            <a href="{% url 'homepage' %}" class="btn btn-secondary w-100">Zrušiť</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
