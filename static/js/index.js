@@ -1,6 +1,6 @@
 const scrollToTopBtn = document.getElementById('scrollToTopBtn')
 
-window.onscroll = function () {
+window.onscroll = function() {
 	if (
 		document.body.scrollTop > 200 ||
 		document.documentElement.scrollTop > 200
@@ -11,7 +11,7 @@ window.onscroll = function () {
 	}
 }
 
-scrollToTopBtn.onclick = function () {
+scrollToTopBtn.onclick = function() {
 	window.scrollTo({
 		top: 0,
 		behavior: 'smooth',
@@ -35,7 +35,7 @@ function deleteReservation(reservationId) {
 	}
 }
 
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function() {
 	const dateField = document.querySelector('[name="date"]')
 	const timeField = document.querySelector('[name="time"]')
 	const availabilityMessage = document.getElementById('availabilityMessage')
@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', function () {
 document.addEventListener('DOMContentLoaded', () => {
 	const showPasswordCheckbox = document.getElementById('showPasswordCheckbox')
 	if (showPasswordCheckbox) {
-		showPasswordCheckbox.addEventListener('change', function () {
+		showPasswordCheckbox.addEventListener('change', function() {
 			const passwordField = document.querySelector(
 				'input[name="password"]'
 			)
@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		'showPasswordCheckbox2'
 	)
 	if (showPasswordCheckbox) {
-		showPasswordCheckbox.addEventListener('change', function () {
+		showPasswordCheckbox.addEventListener('change', function() {
 			const passwordField = document.querySelector(
 				'input[name="password_confirmation"]'
 			)
@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	}
 })
 
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function() {
 	const passwordField = document.querySelector('[name="password"]')
 	const confirmPasswordField = document.querySelector(
 		'[name="password_confirmation"]'

@@ -1,60 +1,62 @@
 {% extends "core/base.html" %}
 {% block content %}
-    {% if posted %}
-        <div class="alert alert-success" role="alert">Zarezervovanie termínu úspešné</div>
-    {% else %}
-        <div class="container mt-5">
-            <h1 class="text-center mb-4">Zarezervujte si termín</h1>
-            <div class="row justify-content-center">
-                <div class="col-md-6">
-                    <div class="bg-light p-4 border rounded shadow-sm">
-                        <form method="POST" class="row g-3">
-                            {% csrf_token %}
-                            <div class="mb-3">
-                                {{ form.service_type.label_tag }}
-                                {{ form.service_type }}
-                                {% if form.service_type.errors %}
-                                    <div class="alert alert-danger small mt-2">
-                                        {% for error in form.service_type.errors %}<p>{{ error }}</p>{% endfor %}
-                                    </div>
-                                {% endif %}
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Zarezervujte si termín</h1>
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="bg-light p-4 border rounded shadow-sm">
+                    <form method="POST" class="row g-3">
+                        {% csrf_token %}
+                        {% if message %}<div class="alert alert-success" role="alert">{{ message }}</div>{% endif %}
+                        {% if form.non_field_errors %}
+                            <div class="alert alert-danger mt-2">
+                                {% for error in form.non_field_errors %}<p>{{ error }}</p>{% endfor %}
                             </div>
-                            <div class="mb-3">
-                                {{ form.date.label_tag }}
-                                {{ form.date }}
-                                {% if form.date.errors %}
-                                    <div class="alert alert-danger small mt-2">
-                                        {% for error in form.date.errors %}<p>{{ error }}</p>{% endfor %}
-                                    </div>
-                                {% endif %}
-                            </div>
-                            <div class="mb-3">
-                                {{ form.time.label_tag }}
-                                {{ form.time }}
-                                {% if form.time.errors %}
-                                    <div class="alert alert-danger small mt-2">
-                                        {% for error in form.time.errors %}<p>{{ error }}</p>{% endfor %}
-                                    </div>
-                                {% endif %}
-                                <div id="availabilityMessage"></div>
-                            </div>
-                            <div class="mb-3">
-                                {{ form.special_requests.label_tag }}
-                                {{ form.special_requests }}
-                                {% if form.special_requests.errors %}
-                                    <div class="alert alert-danger small mt-2">
-                                        {% for error in form.special_requests.errors %}<p>{{ error }}</p>{% endfor %}
-                                    </div>
-                                {% endif %}
-                            </div>
-                            <div class="col-12 text-center">
-                                <button type="submit" class="btn btn-primary w-100">Potvrdiť rezerváciu</button>
-                            </div>
-                        </form>
-                    </div>
+                        {% endif %}
+                        <div class="mb-3">
+                            {{ form.service_type.label_tag }}
+                            {{ form.service_type }}
+                            {% if form.service_type.errors %}
+                                <div class="alert alert-danger small mt-2">
+                                    {% for error in form.service_type.errors %}<p>{{ error }}</p>{% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="mb-3">
+                            {{ form.date.label_tag }}
+                            {{ form.date }}
+                            {% if form.date.errors %}
+                                <div class="alert alert-danger small mt-2">
+                                    {% for error in form.date.errors %}<p>{{ error }}</p>{% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="mb-3">
+                            {{ form.time.label_tag }}
+                            {{ form.time }}
+                            {% if form.time.errors %}
+                                <div class="alert alert-danger small mt-2">
+                                    {% for error in form.time.errors %}<p>{{ error }}</p>{% endfor %}
+                                </div>
+                            {% endif %}
+                            <div id="availabilityMessage"></div>
+                        </div>
+                        <div class="mb-3">
+                            {{ form.special_requests.label_tag }}
+                            {{ form.special_requests }}
+                            {% if form.special_requests.errors %}
+                                <div class="alert alert-danger small mt-2">
+                                    {% for error in form.special_requests.errors %}<p>{{ error }}</p>{% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="col-12 text-center">
+                            <button type="submit" class="btn btn-primary w-100">Potvrdiť rezerváciu</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
-        <br />
-    {% endif %}
+    </div>
+    <br />
 {% endblock %}

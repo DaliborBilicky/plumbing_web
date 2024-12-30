@@ -1,11 +1,13 @@
 import json
+from datetime import datetime, timedelta
 
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator
-from django.http import HttpResponseRedirect, JsonResponse
+from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
+from django.utils.timezone import make_aware, now
 
 from .forms import LoginForm, ProfileEditForm, ReservationForm, SignUpForm
 from .models import Reservation
@@ -19,22 +21,25 @@ def services(request):
     return render(request, "core/services.html", {})
 
 
+@login_required
 def booking(request):
-    posted = False
+    message = None
     if request.method == "POST":
         form = ReservationForm(request.POST)
         if form.is_valid():
             reservation = form.save(commit=False)
             reservation.user = request.user
             reservation.save()
-            return HttpResponseRedirect("/booking?posted=True")
+            message = "Zarezervovanie termínu úspešné"
+            form = ReservationForm()
+
     else:
         form = ReservationForm()
-        if "posted" in request.GET:
-            posted = True
-    return render(request, "core/booking.html", {"form": form, "posted": posted})
+
+    return render(request, "core/booking.html", {"form": form, "message": message})
 
 
+@login_required
 def reservations(request):
     reservations_list = Reservation.objects.filter(user=request.user)
     paginator = Paginator(reservations_list, 10)
@@ -51,6 +56,7 @@ def reservations(request):
     )
 
 
+@login_required
 def edit_reservation(request, reservation_id):
     reservation = get_object_or_404(Reservation, id=reservation_id)
 
@@ -69,6 +75,7 @@ def edit_reservation(request, reservation_id):
     )
 
 
+@login_required
 def delete_reservation(request, reservation_id):
     reservation = get_object_or_404(Reservation, id=reservation_id)
 
@@ -82,10 +89,23 @@ def delete_reservation(request, reservation_id):
 def check_availability(request):
     if request.method == "POST":
         data = json.loads(request.body)
-        date = data.get("date")
-        time = data.get("time")
+        date_str = data.get("date")
+        time_str = data.get("time")
 
-        available = not Reservation.objects.filter(date=date, time=time).exists()
+        input_date = datetime.strptime(date_str, "%Y-%m-%d").date()
+        input_time = datetime.strptime(time_str, "%H:%M").time()
+
+        input_datetime = make_aware(
+            datetime.combine(input_date, input_time), now().tzinfo
+        )
+
+        available = not Reservation.objects.filter(
+            date=input_date,
+            time__range=(
+                (input_datetime - timedelta(hours=2)).time(),
+                (input_datetime + timedelta(hours=2)).time(),
+            ),
+        ).exists()
 
         return JsonResponse({"available": available})
 
@@ -101,7 +121,7 @@ def login_view(request):
                 login(request, user)
                 return redirect("homepage")
             else:
-                form.add_error(None, "Invalid username or password")
+                form.add_error(None, "Nespravne heslo alebo pouzivatelske meno.")
     else:
         form = LoginForm()
     return render(request, "core/login.html", {"form": form})
@@ -130,6 +150,8 @@ def check_password_match(request):
 
         return JsonResponse({"match": match})
 
+
+@login_required
 def profile_edit_view(request):
     user = request.user
     user_profile = user.profile

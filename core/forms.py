@@ -133,7 +133,7 @@ class SignUpForm(forms.ModelForm):
         password_confirmation = cleaned_data.get("password_confirmation")
 
         if password and password_confirmation and password != password_confirmation:
-            raise ValidationError("Passwords do not match")
+            self.add_error(None, "Hesla niesu rovnake")
 
         return cleaned_data
 
@@ -228,8 +228,22 @@ class ReservationForm(forms.ModelForm):
 
             if input_date == current_time.date():
                 if input_datetime <= current_time + timedelta(hours=5):
-                    raise forms.ValidationError(
-                        "Pre dnešné rezervácie musí byť čas aspoň 5 hodín od teraz."
+                    self.add_error(
+                        None,
+                        "Pre dnešné rezervácie musí byť čas aspoň 5 hodín od teraz.",
                     )
+
+            two_hour_range_start = input_datetime - timedelta(hours=2)
+            two_hour_range_end = input_datetime + timedelta(hours=2)
+
+            overlapping_reservations = Reservation.objects.filter(
+                date=input_date,
+                time__range=(two_hour_range_start.time(), two_hour_range_end.time()),
+            )
+            if overlapping_reservations.exists():
+                self.add_error(
+                    None,
+                    "Tento termín je už rezervovaný. Vyberte iný dátum alebo čas. (aspoň 2 hodiny od existujúcej rezervácie)",
+                )
 
         return cleaned_data
