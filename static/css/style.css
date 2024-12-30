@@ -17,6 +17,11 @@ main {
 	flex: 1;
 }
 
+.navbar {
+	height: 101px;
+	min-height: 101px;
+}
+
 .header-logo {
 	margin-left: -1.25em;
 	padding: 0.5em;
