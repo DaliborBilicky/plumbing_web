@@ -184,13 +184,19 @@ function updatePasswordFeedback() {
 	}
 }
 
-confirmPassword.addEventListener('input', updatePasswordFeedback)
-newPassword.addEventListener('input', updatePasswordFeedback)
+if (confirmPassword) {
+	confirmPassword.addEventListener('input', updatePasswordFeedback)
+}
+if (newPassword) {
+	newPassword.addEventListener('input', updatePasswordFeedback)
+}
 
-resetPasswordForm.addEventListener('submit', () => {
-	if (newPassword.value !== confirmPassword.value) {
-		passwordFeedback.textContent = 'Heslá sa nezhodujú!'
-		passwordFeedback.className = 'text-danger mb-3'
-		passwordFeedback.style.display = 'block'
-	}
-})
+if (confirmPassword && newPassword) {
+	resetPasswordForm.addEventListener('submit', () => {
+		if (newPassword.value !== confirmPassword.value) {
+			passwordFeedback.textContent = 'Heslá sa nezhodujú!'
+			passwordFeedback.className = 'text-danger mb-3'
+			passwordFeedback.style.display = 'block'
+		}
+	})
+}
